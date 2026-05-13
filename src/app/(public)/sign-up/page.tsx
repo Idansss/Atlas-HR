@@ -20,6 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { GoogleLogo, LinkedInLogo } from "@/components/auth/oauth-logos";
 import { COMPANY_SIZES, GOALS, INDUSTRIES } from "@/lib/constants";
 import COUNTRIES from "@/lib/data/countries.json";
 import type { Profile } from "@/types/database";
@@ -330,18 +331,18 @@ function SignUpWizard() {
             <div className="space-y-3">
               {(
                 [
-                  { provider: "google", label: "Google" },
-                  { provider: "linkedin_oidc", label: "LinkedIn" },
+                  { provider: "google", label: "Google", Logo: GoogleLogo },
+                  { provider: "linkedin_oidc", label: "LinkedIn", Logo: LinkedInLogo },
                 ] as const
-              ).map(({ provider, label }) => (
+              ).map(({ provider, label, Logo }) => (
                 <button
                   key={provider}
                   type="button"
                   disabled={!!oauthPending}
                   onClick={() => handleOAuth(provider)}
-                  className="w-full flex items-center justify-center gap-2 rounded-xl border border-[--border] py-2.5 text-sm font-medium text-[--text-primary] hover:bg-[--bg-hover] disabled:opacity-60 transition-colors"
+                  className="w-full flex items-center justify-center gap-3 rounded-xl border border-[--border] py-2.5 text-sm font-medium text-[--text-primary] hover:bg-[--bg-hover] disabled:opacity-60 transition-colors"
                 >
-                  {oauthPending === provider && <Loader2 size={14} className="animate-spin" />}
+                  {oauthPending === provider ? <Loader2 size={18} className="animate-spin" /> : <Logo className="h-5 w-5" />}
                   Sign up with {label}
                 </button>
               ))}
