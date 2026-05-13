@@ -26,8 +26,13 @@ export function CookieConsentBanner() {
       denyAnalytics();
     }
     start(async () => {
-      await saveCookieConsent(consent);
-      setVisible(false);
+      try {
+        await saveCookieConsent(consent);
+      } catch (error) {
+        console.error("Failed to persist cookie consent", error);
+      } finally {
+        setVisible(false);
+      }
     });
   }
 
