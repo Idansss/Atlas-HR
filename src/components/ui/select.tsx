@@ -83,7 +83,7 @@ function SelectContent({
           data-slot="select-content"
           data-align-trigger={alignItemWithTrigger}
           className={cn(
-            "relative isolate z-50 max-h-[min(var(--available-height),20rem)] w-[var(--anchor-width)] min-w-40 origin-[var(--transform-origin)] overflow-x-hidden overflow-y-auto scroll-smooth rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-1 text-[var(--text-primary)] shadow-[var(--shadow-dropdown)] outline-none transition-[opacity,transform] duration-[180ms] ease-out data-[ending-style]:duration-150 data-[ending-style]:ease-in data-[ending-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:-translate-y-1 data-[starting-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:-translate-y-1",
+            "relative isolate z-50 max-h-[min(var(--available-height),20rem)] w-[var(--anchor-width)] min-w-40 origin-[var(--transform-origin)] overflow-x-hidden overflow-y-auto scroll-smooth rounded-lg border border-[var(--border)] bg-[var(--bg-card)] p-1 text-[var(--text-primary)] shadow-[var(--shadow-dropdown)] outline-none transition-[opacity,transform] duration-[280ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-[ending-style]:duration-[280ms] data-[ending-style]:ease-[cubic-bezier(0.32,0.72,0,1)] data-[ending-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:-translate-y-1 data-[starting-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:-translate-y-1",
             className
           )}
           {...props}
