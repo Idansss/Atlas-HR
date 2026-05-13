@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 import { SaveButton } from "@/components/shared/save-button";
 import { UpgradeDialog } from "@/components/shared/upgrade-dialog";
 import { useUsage } from "@/hooks/use-usage";
@@ -146,7 +147,7 @@ export function TemplateDownloadPanel({ template }: Props) {
                   placeholder={field.placeholder}
                 />
               ) : (
-                <input
+                <Input
                   className={inputClass}
                   type={field.type === "date" ? "date" : "text"}
                   value={variables[field.name] ?? ""}

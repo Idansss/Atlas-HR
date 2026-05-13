@@ -22,6 +22,7 @@ import {
 } from "recharts";
 import { ArrowLeft, Copy, FileDown, Info, Plus, Save, Trash2 } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 import { CALCULATORS, type CalculatorConfig, type CalculatorField, type CalculatorSlug, type TableColumn } from "@/lib/calculators";
 
 type Inputs = Record<string, unknown>;
@@ -169,7 +170,7 @@ function FieldRenderer({
 
   if (field.kind === "number") {
     return (
-      <input
+      <Input
         className={inputClass}
         min={field.min}
         step={field.step ?? 1}
@@ -205,7 +206,7 @@ function FieldRenderer({
 
   if (field.kind === "text" || field.kind === "date") {
     return (
-      <input
+      <Input
         className={inputClass}
         type={field.kind === "date" ? "date" : "text"}
         value={textValue(value)}
@@ -281,8 +282,8 @@ function FieldRenderer({
                         </SelectContent>
                       </Select>
                     ) : (
-                      <input
-                        className="h-8 w-full rounded-md border border-[--border] bg-[--bg-input] px-2 text-xs text-[--text-primary] outline-none focus:border-[--accent]"
+                      <Input
+                        className="h-8 w-full rounded-md border-[--border] bg-[--bg-input] px-2 text-xs text-[--text-primary]"
                         type={column.type === "number" ? "number" : column.type === "date" ? "date" : "text"}
                         value={column.type === "number" ? String(numberValue(row[column.key])) : textValue(row[column.key])}
                         onChange={(event) => {

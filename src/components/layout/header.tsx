@@ -13,6 +13,7 @@ import { useAccent } from "@/hooks/use-accent";
 import { useUser } from "@/hooks/use-user";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { TOOLS_CONFIG } from "@/lib/tools-config";
 import { TEMPLATES } from "@/lib/templates-data";
@@ -249,12 +250,13 @@ export function Header() {
           <DialogTitle className="sr-only">Search Atlas</DialogTitle>
           <div className="flex items-center gap-2 border-b border-[--border] px-4 py-3">
             <Search size={16} className="shrink-0 text-[--text-tertiary]" />
-            <input
+            <Input
               autoFocus
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search tools, templates, knowledge..."
-              className="flex-1 bg-transparent text-sm text-[--text-primary] outline-none placeholder:text-[--text-tertiary]"
+              aria-label="Search"
+              className="h-9 min-h-0 flex-1 border-0 bg-transparent px-0 py-0 text-sm text-[--text-primary] shadow-none placeholder:text-[--text-tertiary] focus-visible:border-transparent focus-visible:ring-0 dark:bg-transparent"
             />
             {query && (
               <button type="button" onClick={() => setQuery("")} className="text-xs text-[--text-tertiary] hover:text-[--text-primary]">

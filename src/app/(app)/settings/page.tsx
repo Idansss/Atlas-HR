@@ -10,13 +10,14 @@ import { useUser } from "@/hooks/use-user";
 import { createClient } from "@/lib/supabase/client";
 import {
   Monitor, Check, Loader2, Upload, Trash2, Download, AlertTriangle,
-  PanelLeft, MenuOpen, RotateCcw, Eye, Type, Palette, Save, Contrast,
+  PanelLeft, Rows3, RotateCcw, Eye, Type, Palette, Save, Contrast,
 } from "lucide-react";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Combobox } from "@/components/ui/combobox";
+import { Input } from "@/components/ui/input";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
@@ -223,7 +224,7 @@ function ProfileTab() {
       <div className="space-y-4">
         <div>
           <label className="mb-1.5 block text-sm font-medium text-[--text-primary]">Full name</label>
-          <input
+          <Input
             type="text"
             value={form.full_name}
             onChange={(e) => setForm({ ...form, full_name: e.target.value })}
@@ -233,7 +234,7 @@ function ProfileTab() {
         </div>
         <div>
           <label className="mb-1.5 block text-sm font-medium text-[--text-primary]">Job title</label>
-          <input
+          <Input
             type="text"
             value={form.job_title}
             onChange={(e) => setForm({ ...form, job_title: e.target.value })}
@@ -382,7 +383,7 @@ function AccountTab() {
               <label htmlFor={`pw-${key}`} className="mb-1.5 block text-sm font-medium text-[--text-primary]">
                 {label}
               </label>
-              <input
+              <Input
                 id={`pw-${key}`}
                 type="password"
                 value={pwForm[key]}
@@ -415,7 +416,7 @@ function AccountTab() {
         <p className="text-sm text-[--text-tertiary]">Current: <span className="text-[--text-primary]">{profile?.email}</span></p>
         <div>
           <label className="mb-1.5 block text-sm font-medium text-[--text-primary]">New email address</label>
-          <input
+          <Input
             type="email"
             value={newEmail}
             onChange={(e) => setNewEmail(e.target.value)}
@@ -626,7 +627,7 @@ function AppearanceTab() {
               {
                 label: "Compact View",
                 description: "Reduce whitespace for more data.",
-                icon: MenuOpen,
+                icon: Rows3,
                 iconClass: "bg-secondary/10 text-secondary",
                 on: compactView,
                 toggle: () => setCompactView((value) => !value),
@@ -980,7 +981,7 @@ function DataTab() {
             <label className="text-sm font-medium text-[--text-primary]">
               Type <span className="font-mono font-bold">DELETE</span> to confirm
             </label>
-            <input
+            <Input
               type="text"
               value={deleteConfirm}
               onChange={(e) => setDeleteConfirm(e.target.value)}
