@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { AlertTriangle, CheckCircle2, FileWarning, RefreshCw, Send, ShieldCheck } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentOrg } from "@/lib/org/get-current-org";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { recomputeCurrentWorkspaceCompliance, sendDocumentReminder, updateRequirement } from "./actions";
 
 type GapRow = {
@@ -231,10 +233,15 @@ export default async function ComplianceCenterPage() {
                   {requirements.filter((requirement) => requirement.template_id === template.id).slice(0, 6).map((requirement) => (
                     <form key={requirement.id} action={updateRequirement} className="grid gap-2 rounded-lg bg-[--bg-app] p-2 md:grid-cols-[minmax(0,1fr)_70px_80px]">
                       <input type="hidden" name="requirement_id" value={requirement.id} />
-                      <input name="display_name" defaultValue={requirement.display_name} className="rounded-md border border-[--border] bg-[--bg-input] px-2 py-1 text-xs text-[--text-primary]" />
-                      <input name="expiry_warning_days" defaultValue={requirement.expiry_warning_days ?? 30} className="rounded-md border border-[--border] bg-[--bg-input] px-2 py-1 text-xs text-[--text-primary]" />
+                      <Input name="display_name" defaultValue={requirement.display_name} className="h-8 rounded-md bg-[--bg-input] px-2 py-1 text-xs text-[--text-primary]" />
+                      <Input name="expiry_warning_days" type="number" defaultValue={requirement.expiry_warning_days ?? 30} className="h-8 rounded-md bg-[--bg-input] px-2 py-1 text-xs text-[--text-primary]" />
                       <label className="flex items-center gap-1 text-xs text-[--text-secondary]">
-                        <input type="checkbox" name="is_required" defaultChecked={requirement.is_required ?? true} />
+                        <Checkbox
+                          name="is_required"
+                          defaultChecked={requirement.is_required ?? true}
+                          aria-label="Required for compliance"
+                          className="size-4"
+                        />
                         Required
                       </label>
                       <button className="md:col-span-3 w-fit rounded-md border border-[--border] px-2 py-1 text-xs text-[--text-secondary] hover:bg-[--bg-hover]">Save</button>
