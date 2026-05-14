@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { FileText, Download, Lock, Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { TEMPLATES, TEMPLATE_CATEGORIES } from "@/lib/templates-data";
 
 const FORMAT_LABELS = { docx: "DOCX", pdf: "PDF", gdoc: "Google Doc" };
@@ -35,11 +37,12 @@ export default function TemplatesPage() {
         <div className="mb-8 flex flex-wrap items-center gap-3">
           <div className="flex flex-1 items-center gap-2 rounded-lg border border-[--border] bg-[--bg-input] px-3 py-2 min-w-[200px] max-w-xs">
             <Search size={14} className="text-[--text-tertiary]" />
-            <input
+            <Input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search templates..."
-              className="flex-1 bg-transparent text-sm text-[--text-primary] outline-none placeholder:text-[--text-tertiary]"
+              aria-label="Search templates"
+              className="flex-1 border-0 bg-transparent px-0 text-sm text-[--text-primary] shadow-none focus-visible:ring-0 placeholder:text-[--text-tertiary]"
             />
           </div>
 
@@ -60,11 +63,10 @@ export default function TemplatesPage() {
           </div>
 
           <label className="flex cursor-pointer items-center gap-2 text-sm text-[--text-secondary]">
-            <input
-              type="checkbox"
+            <Checkbox
               checked={showPremium}
-              onChange={(e) => setShowPremium(e.target.checked)}
-              className="accent-[--accent]"
+              onCheckedChange={(value) => setShowPremium(Boolean(value))}
+              aria-label="Show premium templates"
             />
             Show premium
           </label>
