@@ -10,6 +10,7 @@ import {
 } from "@/app/(app)/billing/actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
@@ -488,8 +489,8 @@ export function PricingClient({
                 className={cn(
                   "rounded-full px-1.5 py-0.5 text-[10px] font-bold",
                   interval === "year"
-                    ? "bg-primary-foreground/20 text-[--primary-foreground]"
-                    : "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300"
+                    ? "bg-[--primary-foreground]/20 text-[--primary-foreground]"
+                    : "bg-[--success]/15 text-[--success]"
                 )}
               >
                 Save 20%
@@ -520,11 +521,13 @@ export function PricingClient({
                   : "border-[--border] hover:-translate-y-0.5 hover:shadow-md"
               )}
             >
-              {tier.highlighted && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[--accent] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[--primary-foreground] shadow-sm">
-                  Most popular
-                </div>
-              )}
+              <div className="flex min-h-[28px] items-start justify-center">
+                {tier.highlighted ? (
+                  <span className="rounded-full bg-[--accent] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[--primary-foreground] shadow-sm">
+                    Most popular
+                  </span>
+                ) : null}
+              </div>
 
               <div>
                 <h3 className="text-lg font-semibold text-[--text-primary]">{tier.name}</h3>
@@ -803,11 +806,11 @@ export function PricingClient({
 
         <section
           aria-labelledby="pricing-cta-heading"
-          className="relative mb-8 overflow-hidden rounded-3xl bg-foreground p-8 text-center text-background sm:p-12"
+          className="relative mb-8 overflow-hidden rounded-3xl bg-[--accent] p-8 text-center text-[--primary-foreground] sm:p-12"
         >
-          <div className="pointer-events-none absolute inset-0 opacity-30">
-            <div className="absolute -left-20 top-0 size-80 rounded-full bg-[--accent] blur-3xl" />
-            <div className="absolute -right-20 bottom-0 size-80 rounded-full bg-[--accent]/60 blur-3xl" />
+          <div className="pointer-events-none absolute inset-0 opacity-20">
+            <div className="absolute -left-20 top-0 size-80 rounded-full bg-[--primary-foreground] blur-3xl" />
+            <div className="absolute -right-20 bottom-0 size-80 rounded-full bg-[--primary-foreground]/60 blur-3xl" />
           </div>
           <div className="relative">
             <h2
@@ -816,13 +819,16 @@ export function PricingClient({
             >
               Still have questions?
             </h2>
-            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-background/70 sm:text-base">
+            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-[--primary-foreground]/75 sm:text-base">
               Our HR specialists are ready to help you find the right fit for your team&apos;s
               unique requirements.
             </p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button
-                className={cn("h-11 rounded-xl px-6 text-sm font-semibold", smoothTransition)}
+                className={cn(
+                  "h-11 rounded-xl bg-[--primary-foreground] px-6 text-sm font-semibold text-[--accent] hover:bg-[--bg-input]",
+                  smoothTransition
+                )}
                 nativeButton={false}
                 render={<Link href="/demo" />}
               >
@@ -832,7 +838,7 @@ export function PricingClient({
               <Button
                 variant="outline"
                 className={cn(
-                  "h-11 rounded-xl border-background/20 bg-transparent px-6 text-sm font-semibold text-background hover:bg-background/10 hover:text-background",
+                  "h-11 rounded-xl border-[--primary-foreground]/30 bg-[--primary-foreground]/10 px-6 text-sm font-semibold text-[--primary-foreground] hover:bg-[--primary-foreground]/20 hover:text-[--primary-foreground]",
                   smoothTransition
                 )}
                 nativeButton={false}
@@ -965,11 +971,10 @@ function LabeledInput({
   return (
     <label className="grid gap-1.5 text-sm">
       <span className="font-medium text-[--text-primary]">{label}</span>
-      <input
+      <Input
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
-        className="h-10 rounded-lg border border-[--border] bg-[--bg-input] px-3 text-sm text-[--text-primary] outline-none focus:border-[--accent] focus:ring-2 focus:ring-[--accent]/30"
       />
     </label>
   );
@@ -1067,7 +1072,7 @@ function ToggleQuestion({
     >
       <span>{label}</span>
       <span className={`flex h-5 w-9 shrink-0 items-center rounded-full p-0.5 ${value ? "bg-[--accent]" : "bg-[--bg-hover]"}`}>
-        <span className={`h-4 w-4 rounded-full bg-primary-foreground transition-transform ${value ? "translate-x-4" : ""}`} />
+        <span className={`h-4 w-4 rounded-full bg-[--primary-foreground] transition-transform ${value ? "translate-x-4" : ""}`} />
       </span>
     </button>
   );
