@@ -6,6 +6,7 @@ import { Check, Flag, MessageSquare, Sparkles, ThumbsUp } from "lucide-react";
 import { voteOnTarget, createReply, acceptAnswer } from "@/lib/actions/community";
 import { useCopilot } from "@/stores/copilot-store";
 import { track } from "@/lib/analytics/track";
+import { Checkbox } from "@/components/ui/checkbox";
 import type { Database } from "@/types/database";
 
 type Thread = Database["public"]["Tables"]["community_threads"]["Row"] & {
@@ -144,11 +145,7 @@ function ReplyForm({
       {error && <p className="mt-1 text-xs text-[--danger]">{error}</p>}
       <div className="mt-3 flex items-center justify-between gap-3">
         <label className="flex cursor-pointer items-center gap-2 text-sm text-[--text-secondary]">
-          <input
-            type="checkbox"
-            name="is_anonymous"
-            className="accent-[--accent]"
-          />
+          <Checkbox name="is_anonymous" aria-label="Post reply anonymously" className="accent-[--accent]" />
           Post anonymously
         </label>
         <button
