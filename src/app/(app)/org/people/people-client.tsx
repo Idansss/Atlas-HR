@@ -87,8 +87,18 @@ function formatDate(date: string | null) {
   });
 }
 
+type EmployeeManager = {
+  id: string;
+  full_name: string;
+  avatar_url: string | null;
+};
+
+type PeopleDirectoryEmployee = Employee & {
+  manager: EmployeeManager | null;
+};
+
 interface Props {
-  employees: Employee[];
+  employees: PeopleDirectoryEmployee[];
   isAdmin: boolean;
   orgId: string;
 }
