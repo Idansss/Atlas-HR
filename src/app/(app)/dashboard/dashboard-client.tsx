@@ -478,7 +478,7 @@ function ForYouTab({ profile, recentDocs, savedItems }: Pick<Props, "profile" | 
           <h1 className="text-3xl font-semibold tracking-normal text-[--text-primary]">{greeting}</h1>
           <p className="mt-1 text-[--text-secondary]">Here&apos;s your HR brief for today.</p>
         </div>
-        <Button type="button" onClick={openCopilot} className="w-fit shrink-0 rounded-xl">
+        <Button type="button" onClick={openCopilot} className="w-fit shrink-0 rounded-xl bg-[--accent] text-[--primary-foreground] hover:bg-[--accent-hover]">
           <Sparkles aria-hidden="true" size={15} />
           Ask Atlas
         </Button>
@@ -625,8 +625,12 @@ export function DashboardClient({ profile, recentDocs, savedItems, workspace }: 
             type="button"
             disabled={tab.disabled}
             onClick={() => setActiveTab(tab.key)}
-            variant={activeTab === tab.key ? "default" : "ghost"}
-            className={cn("rounded-xl px-3", activeTab !== tab.key && "text-[--text-secondary] hover:bg-[--bg-hover]")}
+            className={cn(
+              "rounded-xl px-3",
+              activeTab === tab.key
+                ? "bg-[--accent] text-[--primary-foreground] hover:bg-[--accent-hover]"
+                : "bg-transparent text-[--text-secondary] hover:bg-[--bg-hover] hover:text-[--text-primary]"
+            )}
           >
             <tab.icon aria-hidden="true" size={14} />
             {tab.label}

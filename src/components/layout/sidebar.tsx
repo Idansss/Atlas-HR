@@ -44,11 +44,10 @@ function NavItem({
       href={href}
       onClick={onClick}
       className={cn(
-        "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors [duration:280ms]",
-        "hover:bg-[--bg-hover]",
+        "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors duration-200",
         isActive
-          ? "bg-[--accent-soft] text-[--text-primary] border-l-2 border-[--accent]"
-          : "text-[--text-secondary] border-l-2 border-transparent",
+          ? "bg-[--accent] text-[--primary-foreground]"
+          : "text-[--text-secondary] hover:bg-[--bg-hover] hover:text-[--text-primary]",
         isCollapsed && "justify-center px-2"
       )}
     >
@@ -191,8 +190,7 @@ export function Sidebar() {
     <motion.aside
       animate={{ width: isCollapsed ? 72 : 280 }}
       transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
-      className="relative flex h-full shrink-0 flex-col overflow-hidden border-r border-[--border]"
-      style={{ background: "var(--bg-sidebar)" }}
+      className="relative flex h-full shrink-0 flex-col overflow-hidden border-r border-[--border] bg-[--bg-card]"
     >
       {/* Logo + collapse */}
       <div className="flex h-16 items-center justify-between px-3 shrink-0">
@@ -273,8 +271,7 @@ export function MobileSidebar() {
           <motion.div
             initial={{ x: -280 }} animate={{ x: 0 }} exit={{ x: -280 }}
             transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
-            className="fixed left-0 top-0 z-50 flex h-full w-[280px] flex-col border-r border-[--border] lg:hidden"
-            style={{ background: "var(--bg-sidebar)" }}
+            className="fixed left-0 top-0 z-50 flex h-full w-[280px] flex-col border-r border-[--border] bg-[--bg-card] lg:hidden"
           >
             <div className="flex h-16 items-center justify-between px-4">
               <div className="flex items-center gap-2">

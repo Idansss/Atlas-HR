@@ -164,7 +164,7 @@ function UserMenu() {
             type="button"
             onClick={handleSignOut}
             disabled={isPending}
-            className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 disabled:opacity-60 transition-colors"
+            className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-[--danger] hover:bg-[--danger]/8 disabled:opacity-60 transition-colors"
           >
             <LogOut size={15} /> Sign out
           </button>
