@@ -496,24 +496,17 @@ export function AppSidebar({ userRole }: { userRole?: string }) {
         href={item.href}
         title={collapsed ? item.label : undefined}
         className={cn(
-          "relative flex items-center rounded-[10px] text-[13px] font-medium transition-all overflow-hidden",
+          "flex items-center rounded-[10px] text-[13px] font-medium transition-all",
           collapsed ? "justify-center px-0 py-[9px]" : "gap-2.5 px-2.5 py-[7px]",
           active
-            ? "nav-active text-white font-semibold"
+            ? "bg-blue-600 text-white font-semibold shadow-sm"
             : "text-slate-600 hover:bg-blue-100 hover:text-navy-900"
         )}
       >
-        {/* Glass sheen overlay */}
-        {active && (
-          <span
-            aria-hidden
-            className="nav-active-sheen pointer-events-none absolute inset-0 rounded-[10px]"
-          />
-        )}
-        <span className={cn("relative z-10 flex shrink-0 transition-colors", active ? "text-white" : "text-slate-400")}>
+        <span className={cn("flex shrink-0 transition-colors", active ? "text-white" : "text-slate-400")}>
           {item.icon}
         </span>
-        {!collapsed && <span className="relative z-10">{item.label}</span>}
+        {!collapsed && item.label}
       </Link>
     );
   }
