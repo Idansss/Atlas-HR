@@ -27,20 +27,20 @@ interface Props {
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const CATEGORIES = [
-  { key: "compliance",  label: "Compliance",   icon: "⚖️",  color: "bg-red-100 text-red-700" },
-  { key: "technical",   label: "Technical",    icon: "💻",  color: "bg-blue-100 text-blue-700" },
-  { key: "soft_skills", label: "Soft Skills",  icon: "🤝",  color: "bg-purple-100 text-purple-700" },
-  { key: "leadership",  label: "Leadership",   icon: "🎯",  color: "bg-amber-100 text-amber-700" },
-  { key: "onboarding",  label: "Onboarding",   icon: "🚀",  color: "bg-green-100 text-green-700" },
-  { key: "other",       label: "Other",        icon: "📚",  color: "bg-navy-100 text-navy-600" },
+  { key: "compliance",  label: "Compliance",  icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z", color: "bg-red-100 text-red-700" },
+  { key: "technical",   label: "Technical",   icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z", color: "bg-blue-100 text-blue-700" },
+  { key: "soft_skills", label: "Soft Skills", icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z", color: "bg-purple-100 text-purple-700" },
+  { key: "leadership",  label: "Leadership",  icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z", color: "bg-amber-100 text-amber-700" },
+  { key: "onboarding",  label: "Onboarding",  icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4", color: "bg-green-100 text-green-700" },
+  { key: "other",       label: "Other",       icon: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253", color: "bg-navy-100 text-navy-600" },
 ] as const;
 
 const FORMATS = [
-  { key: "video",    label: "Video",    icon: "🎬" },
-  { key: "document", label: "Document", icon: "📄" },
-  { key: "live",     label: "Live",     icon: "📡" },
-  { key: "external", label: "External", icon: "🔗" },
-  { key: "scorm",    label: "SCORM",    icon: "📦" },
+  { key: "video",    label: "Video",    icon: "M15 10l4.553-2.069A1 1 0 0121 8.816v6.368a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" },
+  { key: "document", label: "Document", icon: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" },
+  { key: "live",     label: "Live",     icon: "M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" },
+  { key: "external", label: "External", icon: "M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" },
+  { key: "scorm",    label: "SCORM",    icon: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" },
 ] as const;
 
 const ENROLMENT_STATUSES = {
@@ -52,6 +52,14 @@ const ENROLMENT_STATUSES = {
 } as const;
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function Ico({ path, cls = "h-4 w-4" }: { path: string; cls?: string }) {
+  return (
+    <svg className={cls} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d={path} />
+    </svg>
+  );
+}
 
 function getCat(key: string) {
   return CATEGORIES.find((c) => c.key === key) ?? CATEGORIES[CATEGORIES.length - 1];
@@ -120,11 +128,11 @@ function CourseModal({
                 id="course-category"
                 name="category"
                 defaultValue={course?.category ?? "other"}
-                options={CATEGORIES.map((c) => ({ value: c.key, label: `${c.icon} ${c.label}` }))}
+                options={CATEGORIES.map((c) => ({ value: c.key, label: c.label }))}
               />
               <select id="course-category-native" aria-hidden="true" disabled className="hidden">
                 {CATEGORIES.map((c) => (
-                  <option key={c.key} value={c.key}>{c.icon} {c.label}</option>
+                  <option key={c.key} value={c.key}>{c.label}</option>
                 ))}
               </select>
             </div>
@@ -134,11 +142,11 @@ function CourseModal({
                 id="course-format"
                 name="format"
                 defaultValue={course?.format ?? "document"}
-                options={FORMATS.map((f) => ({ value: f.key, label: `${f.icon} ${f.label}` }))}
+                options={FORMATS.map((f) => ({ value: f.key, label: f.label }))}
               />
               <select id="course-format-native" aria-hidden="true" disabled className="hidden">
                 {FORMATS.map((f) => (
-                  <option key={f.key} value={f.key}>{f.icon} {f.label}</option>
+                  <option key={f.key} value={f.key}>{f.label}</option>
                 ))}
               </select>
             </div>
@@ -270,16 +278,12 @@ function EnrolModal({
               onChange={setSelectedCourse}
               options={courses
                 .filter((c) => c.status === "published")
-                .map((c) => {
-                  const cat = getCat(c.category);
-                  return { value: c.id, label: `${cat.icon} ${c.title}` };
-                })}
+                .map((c) => ({ value: c.id, label: c.title }))}
             />
             <select id="enrol-course-native" aria-hidden="true" disabled className="hidden">
-              {courses.filter((c) => c.status === "published").map((c) => {
-                const cat = getCat(c.category);
-                return <option key={c.id} value={c.id}>{cat.icon} {c.title}</option>;
-              })}
+              {courses.filter((c) => c.status === "published").map((c) => (
+                <option key={c.id} value={c.id}>{c.title}</option>
+              ))}
             </select>
           </div>
 
@@ -464,7 +468,9 @@ function CourseCard({
         {/* Header */}
         <div className="flex items-start justify-between gap-2">
           <div className="flex items-start gap-3 min-w-0">
-            <span className="text-2xl flex-shrink-0">{cat.icon}</span>
+            <div className={`h-10 w-10 shrink-0 rounded-xl flex items-center justify-center ${cat.color}`}>
+              <Ico path={cat.icon} cls="h-5 w-5" />
+            </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
                 <h3 className="font-semibold text-navy-900 text-sm leading-tight">{course.title}</h3>
@@ -474,9 +480,15 @@ function CourseCard({
               </div>
               <div className="flex items-center gap-2 mt-1 flex-wrap">
                 <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${cat.color}`}>{cat.label}</span>
-                <span className="text-xs text-navy-400">{fmt.icon} {fmt.label}</span>
+                <span className="inline-flex items-center gap-1 text-xs text-navy-400">
+                  <Ico path={fmt.icon} cls="h-3.5 w-3.5" />
+                  {fmt.label}
+                </span>
                 {course.duration_mins && (
-                  <span className="text-xs text-navy-400">⏱ {course.duration_mins}m</span>
+                  <span className="inline-flex items-center gap-1 text-xs text-navy-400">
+                    <Ico path="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" cls="h-3.5 w-3.5" />
+                    {course.duration_mins}m
+                  </span>
                 )}
               </div>
             </div>
@@ -714,7 +726,7 @@ export function LearningClient({ courses, enrolments, certifications, employees,
               triggerClassName="h-9"
               options={[
                 { value: "all", label: "All categories" },
-                ...CATEGORIES.map((c) => ({ value: c.key, label: `${c.icon} ${c.label}` })),
+                ...CATEGORIES.map((c) => ({ value: c.key, label: c.label })),
               ]}
             />
           )}
@@ -727,7 +739,7 @@ export function LearningClient({ courses, enrolments, certifications, employees,
               className="hidden"
             >
               <option value="all">All categories</option>
-              {CATEGORIES.map((c) => <option key={c.key} value={c.key}>{c.icon} {c.label}</option>)}
+              {CATEGORIES.map((c) => <option key={c.key} value={c.key}>{c.label}</option>)}
             </select>
           )}
           {tab === "enrolments" && (
@@ -814,7 +826,7 @@ export function LearningClient({ courses, enrolments, certifications, employees,
             ))}
           </div>
         ) : (
-          <EmptyState icon="📚" title="No courses found" sub={courses.length === 0 ? "Add your first course to start building your learning library." : "Try adjusting your search or filters."} action={isAdmin && courses.length === 0 ? { label: "Add course", onClick: () => setShowCourse(true) } : undefined} />
+          <EmptyState iconPath="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" title="No courses found" sub={courses.length === 0 ? "Add your first course to start building your learning library." : "Try adjusting your search or filters."} action={isAdmin && courses.length === 0 ? { label: "Add course", onClick: () => setShowCourse(true) } : undefined} />
         )
       )}
 
@@ -845,7 +857,9 @@ export function LearningClient({ courses, enrolments, certifications, employees,
                     <div className="col-span-4 min-w-0">
                       {course && cat ? (
                         <div className="flex items-center gap-1.5">
-                          <span>{cat.icon}</span>
+                          <span className={`flex items-center justify-center h-5 w-5 rounded ${cat.color} shrink-0`}>
+                            <Ico path={cat.icon} cls="h-3 w-3" />
+                          </span>
                           <span className="text-sm text-navy-700 truncate">{course.title}</span>
                         </div>
                       ) : <span className="text-sm text-navy-400 italic">Removed</span>}
@@ -857,9 +871,9 @@ export function LearningClient({ courses, enrolments, certifications, employees,
                       <span className="text-xs text-navy-500 w-8 text-right">{enrolment.progress_pct}%</span>
                     </div>
                     <div className="col-span-2">
-                      <span className={`text-xs font-medium ${overdue ? "text-red-600" : "text-navy-500"}`}>
+                      <span className={`inline-flex items-center gap-1 text-xs font-medium ${overdue ? "text-red-600" : "text-navy-500"}`}>
                         {enrolment.due_date ? fmtDate(enrolment.due_date) : "—"}
-                        {overdue && " ⚠️"}
+                        {overdue && <Ico path="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" cls="h-3.5 w-3.5 text-red-500" />}
                       </span>
                     </div>
                     <div className="col-span-1">
@@ -877,7 +891,7 @@ export function LearningClient({ courses, enrolments, certifications, employees,
             </div>
           </div>
         ) : (
-          <EmptyState icon="🎓" title="No enrolments found" sub={enrolments.length === 0 ? "Enrol employees in courses to start tracking their progress." : "Try adjusting your search."} action={isAdmin && enrolments.length === 0 ? { label: "Enrol employee", onClick: () => setEnrolCourseId("") } : undefined} />
+          <EmptyState iconPath="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" title="No enrolments found" sub={enrolments.length === 0 ? "Enrol employees in courses to start tracking their progress." : "Try adjusting your search."} action={isAdmin && enrolments.length === 0 ? { label: "Enrol employee", onClick: () => setEnrolCourseId("") } : undefined} />
         )
       )}
 
@@ -914,10 +928,10 @@ export function LearningClient({ courses, enrolments, certifications, employees,
                     <div className="col-span-2 text-sm text-navy-500 truncate">{cert.issuer ?? "—"}</div>
                     <div className="col-span-2 text-sm text-navy-500">{fmtDate(cert.issued_date)}</div>
                     <div className="col-span-2 flex items-center justify-between gap-2">
-                      <span className={`text-sm font-medium ${expired ? "text-red-600" : expiringSoon ? "text-amber-600" : "text-navy-500"}`}>
+                      <span className={`inline-flex items-center gap-1 text-sm font-medium ${expired ? "text-red-600" : expiringSoon ? "text-amber-600" : "text-navy-500"}`}>
                         {fmtDate(cert.expiry_date)}
-                        {expiringSoon && !expired && " ⚠️"}
-                        {expired && " ❌"}
+                        {expiringSoon && !expired && <Ico path="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" cls="h-3.5 w-3.5 text-amber-500" />}
+                        {expired && <Ico path="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" cls="h-3.5 w-3.5 text-red-500" />}
                       </span>
                       {isAdmin && (
                         <button
@@ -938,7 +952,7 @@ export function LearningClient({ courses, enrolments, certifications, employees,
             </div>
           </div>
         ) : (
-          <EmptyState icon="🏆" title="No certifications found" sub={certifications.length === 0 ? "Track employee certifications and credentials here." : "Try adjusting your search."} action={isAdmin && certifications.length === 0 ? { label: "Add certification", onClick: () => setShowCert(true) } : undefined} />
+          <EmptyState iconPath="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" title="No certifications found" sub={certifications.length === 0 ? "Track employee certifications and credentials here." : "Try adjusting your search."} action={isAdmin && certifications.length === 0 ? { label: "Add certification", onClick: () => setShowCert(true) } : undefined} />
         )
       )}
     </>
@@ -948,13 +962,15 @@ export function LearningClient({ courses, enrolments, certifications, employees,
 // ─── Empty State ──────────────────────────────────────────────────────────────
 
 function EmptyState({
-  icon, title, sub, action,
+  iconPath, title, sub, action,
 }: {
-  icon: string; title: string; sub: string; action?: { label: string; onClick: () => void };
+  iconPath: string; title: string; sub: string; action?: { label: string; onClick: () => void };
 }) {
   return (
     <div className="text-center py-20 bg-white rounded-2xl border border-navy-200">
-      <div className="text-4xl mb-4">{icon}</div>
+      <div className="mx-auto mb-4 h-16 w-16 rounded-2xl bg-navy-100 flex items-center justify-center text-navy-400">
+        <Ico path={iconPath} cls="h-8 w-8" />
+      </div>
       <h3 className="text-base font-semibold text-navy-900 mb-1">{title}</h3>
       <p className="text-sm text-navy-500 mb-5">{sub}</p>
       {action && (
