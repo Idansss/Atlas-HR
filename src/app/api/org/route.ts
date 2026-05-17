@@ -45,7 +45,7 @@ export async function POST(request: Request) {
 
     const { error: memberError } = await admin
       .from("org_members")
-      .insert({ org_id: org.id, user_id: user.id, org_role: "admin" });
+      .insert({ org_id: org.id, user_id: user.id, org_role: "admin", roles: ["workspace_owner"] });
 
     if (memberError) {
       return NextResponse.json({ error: memberError.message }, { status: 500 });

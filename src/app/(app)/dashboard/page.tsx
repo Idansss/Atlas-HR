@@ -806,7 +806,7 @@ export default async function DashboardPage() {
             recruitment pipeline reporting, and operating alerts.
           </p>
           <Link
-            href="/settings/org"
+            href="/onboarding/org"
             className="mt-6 inline-flex items-center justify-center rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-700"
           >
             Set up organisation
