@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AtlasAiMark } from "@/components/atlas-ai-mark";
+import { MarkdownContent } from "@/components/ai/markdown-content";
 import { cn } from "@/lib/utils";
 
 interface WidgetSkill {
@@ -22,41 +23,6 @@ interface Props {
   enabledSkills: WidgetSkill[];
 }
 
-// Lightweight markdown: bold + bullet lines. The full /copilot page has the
-// rich renderer; the widget stays compact and readable.
-function renderInline(text: string, keyBase: string) {
-  return text.split(/(\*\*[^*\n]+\*\*)/).map((part, i) => {
-    if (part.startsWith("**") && part.endsWith("**") && part.length > 4) {
-      return (
-        <strong key={`${keyBase}-${i}`} className="font-semibold text-navy-900">
-          {part.slice(2, -2)}
-        </strong>
-      );
-    }
-    return <span key={`${keyBase}-${i}`}>{part}</span>;
-  });
-}
-
-function MessageBody({ text }: { text: string }) {
-  const lines = text.split("\n");
-  return (
-    <div className="space-y-1.5">
-      {lines.map((line, i) => {
-        if (line.trim() === "") return <div key={i} className="h-1" />;
-        if (/^[-*+]\s/.test(line)) {
-          return (
-            <div key={i} className="flex gap-1.5 pl-1">
-              <span className="text-blue-400">•</span>
-              <span className="flex-1">{renderInline(line.replace(/^[-*+]\s/, ""), String(i))}</span>
-            </div>
-          );
-        }
-        return <p key={i}>{renderInline(line, String(i))}</p>;
-      })}
-    </div>
-  );
-}
-
 export function AtlasAiWidget({ enabledSkills }: Props) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -65,6 +31,11 @@ export function AtlasAiWidget({ enabledSkills }: Props) {
   const [loading, setLoading] = useState(false);
   const [activeSkill, setActiveSkill] = useState<WidgetSkill | null>(null);
   const [conversationId, setConversationId] = useState<string | null>(null);
+
+  // Conversation history — shares the same backend as the full /copilot page.
+  const [historyOpen, setHistoryOpen] = useState(false);
+  const [conversations, setConversations] = useState<{ id: string; title: string; updated_at: string }[]>([]);
+  const [historyLoading, setHistoryLoading] = useState(false);
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -81,6 +52,42 @@ export function AtlasAiWidget({ enabledSkills }: Props) {
     setConversationId(null);
     setActiveSkill(null);
     setInput("");
+    setHistoryOpen(false);
+  }
+
+  async function openHistory() {
+    setHistoryOpen(true);
+    setHistoryLoading(true);
+    try {
+      const res = await fetch("/api/copilot/conversations");
+      const data = await res.json();
+      if (res.ok) setConversations(data.conversations ?? []);
+    } catch {
+      /* ignore — panel shows empty state */
+    } finally {
+      setHistoryLoading(false);
+    }
+  }
+
+  async function loadConversation(id: string) {
+    try {
+      const res = await fetch(`/api/copilot/conversations/${id}`);
+      const data = await res.json();
+      if (!res.ok) return;
+      setMessages(
+        (data.messages ?? []).map((m: { role: "user" | "assistant"; content: string }) => ({
+          id: crypto.randomUUID(),
+          role: m.role,
+          content: m.content,
+        })),
+      );
+      setConversationId(id);
+      setActiveSkill(null);
+      setInput("");
+      setHistoryOpen(false);
+    } catch {
+      /* ignore */
+    }
   }
 
   function pickSkill(skill: WidgetSkill) {
@@ -218,6 +225,19 @@ export function AtlasAiWidget({ enabledSkills }: Props) {
                   </div>
                 </div>
                 <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={() => (historyOpen ? setHistoryOpen(false) : void openHistory())}
+                    title="Conversation history"
+                    className={cn(
+                      "rounded-lg p-1.5 transition-colors hover:bg-white/10 hover:text-white",
+                      historyOpen ? "bg-white/10 text-white" : "text-blue-200/80",
+                    )}
+                  >
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </button>
                   {messages.length > 0 && (
                     <button
                       type="button"
@@ -253,8 +273,57 @@ export function AtlasAiWidget({ enabledSkills }: Props) {
               </div>
             </div>
 
+            {/* History panel — overlays the message list within the slide-over */}
+            {historyOpen && (
+              <div className="flex-1 overflow-y-auto bg-white">
+                <div className="sticky top-0 flex items-center justify-between border-b border-navy-100 bg-white px-4 py-3">
+                  <p className="text-sm font-bold text-navy-900">Conversations</p>
+                  <button
+                    type="button"
+                    onClick={reset}
+                    className="flex items-center gap-1 text-xs font-semibold text-blue-700 hover:text-blue-900"
+                  >
+                    <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                    New chat
+                  </button>
+                </div>
+                {historyLoading ? (
+                  <div className="flex items-center justify-center gap-2 py-10 text-sm text-navy-400">
+                    <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    Loading…
+                  </div>
+                ) : conversations.length > 0 ? (
+                  <div className="divide-y divide-navy-50">
+                    {conversations.map((c) => (
+                      <button
+                        key={c.id}
+                        type="button"
+                        onClick={() => void loadConversation(c.id)}
+                        className={cn(
+                          "w-full px-4 py-3 text-left transition-colors hover:bg-blue-50",
+                          c.id === conversationId && "bg-blue-50",
+                        )}
+                      >
+                        <p className="truncate text-sm font-medium text-navy-800">{c.title || "Untitled chat"}</p>
+                        <p className="text-[11px] text-navy-400">
+                          {new Date(c.updated_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
+                        </p>
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="px-4 py-10 text-center text-sm text-navy-400">No saved conversations yet.</p>
+                )}
+              </div>
+            )}
+
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto px-4 py-4">
+            <div className={cn("flex-1 overflow-y-auto px-4 py-4", historyOpen && "hidden")}>
               {messages.length === 0 ? (
                 <div className="flex h-full flex-col">
                   <p className="text-sm text-navy-600">
@@ -312,7 +381,7 @@ export function AtlasAiWidget({ enabledSkills }: Props) {
                         ) : m.role === "user" ? (
                           <span className="whitespace-pre-wrap">{m.content}</span>
                         ) : (
-                          <MessageBody text={m.content} />
+                          <MarkdownContent text={m.content} />
                         )}
                       </div>
                     </div>

@@ -14,6 +14,19 @@ const PROTECTED = [
 const SAFE_METHODS = new Set(["GET", "HEAD", "OPTIONS"]);
 
 export async function middleware(request: NextRequest) {
+  // Safety net: if Supabase falls back to the Site URL root (e.g. a reset or
+  // OAuth code lands on "/?code=..." instead of the configured redirectTo),
+  // forward it to /auth/callback so the code is exchanged instead of silently
+  // dead-ending on the landing page.
+  if (
+    request.nextUrl.pathname === "/" &&
+    request.nextUrl.searchParams.has("code")
+  ) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/auth/callback";
+    return NextResponse.redirect(url);
+  }
+
   let supabaseResponse = NextResponse.next({ request });
   const supabaseKey =
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY?.trim() ??
