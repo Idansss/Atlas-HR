@@ -410,8 +410,8 @@ function SkillsTab({ enabled, setEnabled, isAdmin, onUse }: { enabled: Set<strin
     <>
       <div className="flex items-center justify-between mb-5">
         <div>
-          <p className="text-sm text-navy-500">AI skills powered by Claude — draft, analyse, and automate HR tasks instantly.</p>
-          {enabled.size > 0 && <p className="text-xs text-blue-600 font-semibold mt-0.5">{enabled.size} skill{enabled.size !== 1 ? "s" : ""} enabled — click <span className="underline underline-offset-2">Use</span> to invoke Claude</p>}
+          <p className="text-sm text-navy-500">AI skills powered by Atlas AI — draft, analyse, and automate HR tasks instantly.</p>
+          {enabled.size > 0 && <p className="text-xs text-blue-600 font-semibold mt-0.5">{enabled.size} skill{enabled.size !== 1 ? "s" : ""} enabled — click <span className="underline underline-offset-2">Use</span> to run Atlas AI</p>}
         </div>
         <div className="relative">
           <svg className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-navy-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
@@ -443,7 +443,7 @@ function SkillsTab({ enabled, setEnabled, isAdmin, onUse }: { enabled: Set<strin
                     {loading ? "…" : isEn ? "✓ Enabled" : "Enable skill"}
                   </button>
                   {isEn && (
-                    <button type="button" onClick={() => onUse(skill)} title="Invoke Claude for this skill"
+                    <button type="button" onClick={() => onUse(skill)} title="Run Atlas AI for this skill"
                       className="px-3 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 text-white text-sm font-semibold hover:from-blue-700 hover:to-violet-700 transition-all shrink-0 flex items-center gap-1.5">
                       <AtlasAiMark className="h-4 w-4" />
                       Use
@@ -672,7 +672,7 @@ function SkillChatModal({ skill, onClose }: { skill: Skill; onClose: () => void 
           </div>
           <div className="flex items-center gap-2 shrink-0">
             <span className="flex items-center gap-1 text-xs text-blue-600 font-semibold bg-blue-50 px-2 py-1 rounded-full">
-              <AtlasAiMark className="h-3.5 w-3.5" />Powered by Claude
+              <AtlasAiMark className="h-3.5 w-3.5" />Powered by Atlas AI
             </span>
             <button type="button" onClick={onClose} aria-label="Close" disabled={generating} className="text-navy-400 hover:text-navy-700 disabled:opacity-40">
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
@@ -687,9 +687,9 @@ function SkillChatModal({ skill, onClose }: { skill: Skill; onClose: () => void 
           <button type="button" onClick={() => void generate()} disabled={!prompt.trim() || generating}
             className="mt-2 w-full bg-gradient-to-r from-blue-600 to-violet-600 text-white text-sm font-semibold py-2.5 rounded-xl hover:from-blue-700 hover:to-violet-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
             {generating ? (
-              <><svg className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>Claude is generating…</>
+              <><svg className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>Atlas AI is generating…</>
             ) : (
-              <><AtlasAiMark className="h-4 w-4" />Generate with Claude</>
+              <><AtlasAiMark className="h-4 w-4" />Generate with Atlas AI</>
             )}
           </button>
         </div>
@@ -719,7 +719,7 @@ function SkillChatModal({ skill, onClose }: { skill: Skill; onClose: () => void 
               <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-100 to-violet-100 flex items-center justify-center mx-auto mb-3">
                 <AtlasAiMark className="h-6 w-6 text-blue-600" />
               </div>
-              <p className="text-sm text-navy-500">Enter your details above and click <span className="font-semibold text-navy-700">Generate with Claude</span></p>
+              <p className="text-sm text-navy-500">Enter your details above and click <span className="font-semibold text-navy-700">Generate with Atlas AI</span></p>
             </div>
           </div>
         )}
