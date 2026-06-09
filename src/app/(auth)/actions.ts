@@ -167,6 +167,19 @@ export async function signUpWithPassword(formData: FormData) {
     if (memberError) {
       return { error: memberError.message };
     }
+
+    // Also create a linked employee record for the founder so the self-service
+    // portal (My Leave, My Profile, etc.) works for them immediately instead of
+    // dead-ending on "Account not linked". The portal resolves the employee via
+    // employees.linked_user_id.
+    await admin.from("employees").insert({
+      org_id: org.id,
+      full_name: fullName,
+      email,
+      job_title: role,
+      status: "active",
+      linked_user_id: userId,
+    });
   }
 
   // When email confirmation is enabled, signUp returns no session — the user
