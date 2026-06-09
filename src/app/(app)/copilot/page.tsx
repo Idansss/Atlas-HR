@@ -273,7 +273,15 @@ function markdownToDocHtml(markdown: string): string {
     while (i < lines.length && lines[i].trim() !== "" && !lines[i].startsWith("#") && !lines[i].match(/^[-*+] /) && !lines[i].match(/^\d+[.)]\s/) && !lines[i].trimStart().startsWith("```") && !lines[i].startsWith("> ") && !lines[i].match(/^[-*_]{3,}$/) && !lines[i].startsWith("⚠️")) {
       paraLines.push(lines[i]); i++;
     }
-    if (paraLines.length > 0) parts.push(`<p style="margin-bottom:6pt;">${inlineHtml(paraLines.join(" "))}</p>`);
+    if (paraLines.length > 0) {
+      parts.push(`<p style="margin-bottom:6pt;">${inlineHtml(paraLines.join(" "))}</p>`);
+    } else {
+      // Safety net: line starts with a marker we don't emit as a block (H4,
+      // "#tag", non-LEGAL-REVIEW "⚠️ …"). Emit as a paragraph and advance so
+      // the loop always progresses — otherwise this would hang on export.
+      parts.push(`<p style="margin-bottom:6pt;">${inlineHtml(line)}</p>`);
+      i++;
+    }
   }
   return parts.join("\n");
 }

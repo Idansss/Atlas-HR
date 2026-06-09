@@ -223,6 +223,18 @@ export function MarkdownContent({ text }: { text: string }) {
           {inlineFormatLocal(paraLines.join(" "))}
         </p>
       );
+    } else {
+      // Safety net: this line started with a marker we don't render as a block
+      // (e.g. an H4 "#### ", a "#tag", or a "⚠️ …" line that isn't LEGAL
+      // REVIEW), so the paragraph collector above consumed nothing. Render it
+      // as plain text and advance — without this, `i` never moves and the
+      // outer while-loop hangs the browser tab mid-stream.
+      elements.push(
+        <p key={nextKey()} className="text-sm text-navy-700 leading-relaxed mb-2">
+          {inlineFormatLocal(line)}
+        </p>
+      );
+      i++;
     }
   }
 

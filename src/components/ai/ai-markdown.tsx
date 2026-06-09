@@ -114,6 +114,13 @@ export function AiMarkdown({ text }: { text: string }) {
     }
     if (paraLines.length > 0) {
       elements.push(<p key={nextKey()} className="text-sm text-navy-700 leading-relaxed mb-2">{inline(paraLines.join(" "))}</p>);
+    } else {
+      // Safety net: line starts with a marker we don't render as a block
+      // (e.g. H4 "#### ", "#tag", or a non-LEGAL-REVIEW "⚠️ …" line) so the
+      // paragraph collector consumed nothing. Render as text and advance —
+      // otherwise `i` never moves and the loop hangs the tab.
+      elements.push(<p key={nextKey()} className="text-sm text-navy-700 leading-relaxed mb-2">{inline(line)}</p>);
+      i++;
     }
   }
 
