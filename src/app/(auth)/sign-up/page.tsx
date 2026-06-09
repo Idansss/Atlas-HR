@@ -13,6 +13,15 @@ import { cn } from "@/lib/utils";
 
 const STORAGE_KEY = "atlas-signup-wizard";
 
+function slugify(text: string) {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .trim();
+}
+
 type Step = 1 | 2 | 3;
 
 interface WizardState {
